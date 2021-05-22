@@ -2,36 +2,31 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-3 p-5 ">
+        <div class="row offset-lg-2">
+            <div class="col-sm-3 col-lg-3 p-5 ">
                 <img
-                    src="https://instagram.fakx2-1.fna.fbcdn.net/v/t51.2885-19/s320x320/139593037_723089571744236_2777084567510606322_n.jpg?tp=1&_nc_ht=instagram.fakx2-1.fna.fbcdn.net&_nc_ohc=BG2aG7UNL1IAX-aUswr&oh=74a58c91c91dfd1b93483bee9fe2f65e&oe=60705369"
+                    src="{{ $user->profile->profileImage() }}"
                     alt="" class="rounded-circle w-100" srcset="">
             </div>
-            <div class="col-9 pt-5">
-                <div class="d-flex justify-content-between align-items-baseline">
-                    <h1>
+            <div class="col-sm-9 col-lg-6 pt-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>
                         {{ $user->username }}
-                    </h1>
+                    </h2>
+
+                    <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
 
                     @can('update', $user->profile)
-                        <a href="{{ url('p/create') }}">
-                            Add New Posts
+                        <a class="btn btn-primary px-4" href="/profile/{{ $user->id }}/edit">
+                            Edit
                         </a>
                     @endcan
-
                 </div>
 
-                @can('update', $user->profile)
-                    <a href="/profile/{{ $user->id }}/edit">
-                        Edit Profile
-                    </a>
-                @endcan
-
-                <div class="d-flex">
-                    <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> Posts</div>
-                    <div class="pr-5"><strong>1k</strong> Followers</div>
-                    <div class="pr-5"><strong>212</strong> Following</div>
+                <div class="d-flex justify-content-between">
+                    <div class=""><strong>{{ $postCount }}</strong> Posts</div>
+                    <div class=""><strong>{{ $followersCount }}</strong> Followers</div>
+                    <div class=""><strong>{{ $followingCount }}</strong> Following</div>
                 </div>
                 <div class="pt-4 font-weight-bold">
                     {{ $user->profile->title }}
@@ -40,9 +35,17 @@
                     {{ $user->profile->description }}
                 </div>
                 <div>
-                    <a href="#">{{ $user->profile->url }}</a>
+                    <a href="{{ $user->profile->url }}">{{ $user->profile->url }}</a>
                 </div>
+                <hr>
             </div>
+            @can('update', $user->profile)
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <a class="btn btn-primary px-4" href="{{ url('p/create') }}">
+                        Add
+                    </a>
+                </div>
+            @endcan
         </div>
 
         <div class="row pt-4">

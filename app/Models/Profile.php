@@ -8,7 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
+
+    public function profileImage()
+    {
+        $imagePath = ($this->image) ? $this->image : 'files/user.png';
+        return '/storage/' . $imagePath;
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
     public function user()
     {
