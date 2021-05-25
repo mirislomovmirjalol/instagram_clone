@@ -51,4 +51,11 @@ class PostsController extends Controller
     {
         return view('posts.show', compact('post'));
     }
+
+    public function recommended()
+    {
+        $posts = Post::latest()->paginate(5);
+
+        return view('posts.index', compact('posts'));
+    }
 }

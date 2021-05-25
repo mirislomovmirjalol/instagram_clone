@@ -14,8 +14,9 @@
                         {{ $user->username }}
                     </h2>
 
-                    <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
-
+                    @if ($authUser!=$user->id)
+                        <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+                    @endif
                     @can('update', $user->profile)
                         <a class="btn btn-primary px-4" href="/profile/{{ $user->id }}/edit">
                             Edit

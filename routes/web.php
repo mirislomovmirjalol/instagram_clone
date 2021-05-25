@@ -18,10 +18,11 @@ Auth::routes();
 
 Route::post('follow/{user}', 'App\Http\Controllers\FollowsController@store');
 
-Route::get('/', 'App\Http\Controllers\PostsController@index');
-Route::get('/p/create','App\Http\Controllers\PostsController@create');
-Route::post('/p','App\Http\Controllers\PostsController@store');
-Route::get('/p/{post}','App\Http\Controllers\PostsController@show');
+Route::get('/', 'App\Http\Controllers\PostsController@index')->name('home');
+Route::get('/p/create', 'App\Http\Controllers\PostsController@create');
+Route::post('/p', 'App\Http\Controllers\PostsController@store');
+Route::get('/p/{post}', 'App\Http\Controllers\PostsController@show')->name('post.show');
+Route::get('/recommended}', [App\Http\Controllers\PostsController::class, 'recommended'])->name('recommended');
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
